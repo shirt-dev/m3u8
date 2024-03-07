@@ -986,6 +986,7 @@ class Playlist(BasePathMixin):
             pathway_id=stream_info.get("pathway_id"),
             stable_variant_id=stream_info.get("stable_variant_id"),
             req_video_layout=stream_info.get("req_video_layout"),
+            characteristics=stream_info.get("characteristics"),
         )
         self.media = []
         for media_type in ("audio", "video", "subtitles"):
@@ -1052,6 +1053,7 @@ class IFramePlaylist(BasePathMixin):
             pathway_id=iframe_stream_info.get("pathway_id"),
             stable_variant_id=iframe_stream_info.get("stable_variant_id"),
             req_video_layout=None,
+            characteristics=iframe_stream_info.get("characteristics"),
         )
 
     def __str__(self):
@@ -1113,6 +1115,7 @@ class StreamInfo:
     pathway_id = None
     stable_variant_id = None
     req_video_layout = None
+    characteristics = None
 
     def __init__(self, **kwargs):
         self.bandwidth = kwargs.get("bandwidth")
@@ -1130,6 +1133,7 @@ class StreamInfo:
         self.pathway_id = kwargs.get("pathway_id")
         self.stable_variant_id = kwargs.get("stable_variant_id")
         self.req_video_layout = kwargs.get("req_video_layout")
+        self.characteristics = kwargs.get("characteristics")
 
     def __str__(self):
         stream_inf = []
@@ -1161,6 +1165,9 @@ class StreamInfo:
             stream_inf.append("STABLE-VARIANT-ID=" + quoted(self.stable_variant_id))
         if self.req_video_layout is not None:
             stream_inf.append("REQ-VIDEO_LAYOUT=" + quoted(self.req_video_layout))
+        if self.characteristics is not None:
+            stream_inf.append("CHARACTERISTICS=" + quoted(self.characteristics))
+
         return ",".join(stream_inf)
 
 
