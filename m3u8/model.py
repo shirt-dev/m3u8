@@ -980,6 +980,7 @@ class Playlist(BasePathMixin):
             program_id=stream_info.get("program_id"),
             resolution=resolution_pair,
             codecs=stream_info.get("codecs"),
+            supplemental_codecs=stream_info.get("supplemental_codecs"),
             frame_rate=stream_info.get("frame_rate"),
             video_range=stream_info.get("video_range"),
             hdcp_level=stream_info.get("hdcp_level"),
@@ -1047,6 +1048,7 @@ class IFramePlaylist(BasePathMixin):
             program_id=iframe_stream_info.get("program_id"),
             resolution=resolution_pair,
             codecs=iframe_stream_info.get("codecs"),
+            supplemental_codecs=iframe_stream_info.get("supplemental_codecs"),
             video_range=iframe_stream_info.get("video_range"),
             hdcp_level=iframe_stream_info.get("hdcp_level"),
             frame_rate=None,
@@ -1106,6 +1108,7 @@ class StreamInfo:
     program_id = None
     resolution = None
     codecs = None
+    supplemental_codecs = None
     audio = None
     video = None
     subtitles = None
@@ -1124,6 +1127,7 @@ class StreamInfo:
         self.program_id = kwargs.get("program_id")
         self.resolution = kwargs.get("resolution")
         self.codecs = kwargs.get("codecs")
+        self.supplemental_codecs = kwargs.get("supplemental_codecs")
         self.audio = kwargs.get("audio")
         self.video = kwargs.get("video")
         self.subtitles = kwargs.get("subtitles")
@@ -1155,6 +1159,8 @@ class StreamInfo:
             )
         if self.codecs is not None:
             stream_inf.append("CODECS=" + quoted(self.codecs))
+        if self.supplemental_codecs is not None:
+            stream_inf.append("SUPPLEMENTAL-CODECS=" + quoted(self.codecs))
         if self.video_range is not None:
             stream_inf.append("VIDEO-RANGE=%s" % self.video_range)
         if self.hdcp_level is not None:
